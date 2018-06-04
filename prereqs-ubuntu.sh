@@ -33,6 +33,4 @@ cat "${DIR}/config/truffle.js" | tee "${DIR}/oraclize/truffle.js"
 #tee "${DIR}/oraclize/truffle.js" <<-'EOF'
 # ***************************************************************
 cd "${HOME}/quorum-examples/7nodes" && ./raft-init.sh && ./raft-start.sh
-# nohup
-ethereum-bridge -a 0 -H 127.0.0.1 -p 22000 --gasprice 0
-# >"${DIR}/ethereum-bridge.log" 2>&1 &
+ethereum-bridge -a 0 -H 127.0.0.1 -p 22000 --gasprice 0 | tee ethereum-bridge.log
