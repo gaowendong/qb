@@ -1,0 +1,21 @@
+{
+    "env": {
+        "node": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 8
+    },
+    "rules": {
+        "strict": ["error", "global"],
+        "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
+        "semi": ["error", "always"],
+        "no-console": "off",
+        "no-constant-condition": "off",
+        "no-cond-assign": "off"
+    },
+    "globals": {
+        "window": true,
+        "Promise": true
+    },
+    "extends": "eslint:recommended"
+}

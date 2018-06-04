@@ -1,0 +1,21 @@
+{
+  "name": "qr-ui",
+  "version": "0.0.1",
+  "description": "quorum ui",
+  "main": "server.js",
+  "scripts": {
+    "setup": "npm i --registry=https://registry.npm.taobao.org",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "eslint": "latest",
+    "koa": "latest",
+    "koa-router": "latest",
+    "koa-json": "latest",
+    "truffle": "latest",
+    "log4js": "latest",
+    "config": "latest"
+  },
+  "author": "zdd",
+  "license": "ISC"
+}

@@ -1,0 +1,7 @@
+.idea/
+oraclize/
+node_modules/
+logs/
+!logs/text
+ethereum-bridge.log
+test.js
