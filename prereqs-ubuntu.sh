@@ -21,14 +21,13 @@ node -v || nvm install --lts
 nvm ls-remote --lts | grep $(node -v) || nvm use --lts && nvm alias default 'lts/*'
 node-gyp -v || sudo apt-fast install -y node-gyp
 # ***************************************************************
-truffle version || npm install -g truffle --registry=https://registry.npm.taobao.org
-ethereum-bridge --version || npm install -g ethereum-bridge --registry=https://registry.npm.taobao.org
-# ***************************************************************
 npm run setup
 npm run server
 # ***************************************************************
 cd "${HOME}/quorum-examples/7nodes" && ./raft-init.sh && ./raft-start.sh
 # ***************************************************************
+truffle version || npm install -g truffle --registry=https://registry.npm.taobao.org
+ethereum-bridge --version || npm install -g ethereum-bridge --registry=https://registry.npm.taobao.org
 function getOAR() {
     sleep 3
 #    address resolver (OAR) deployed to: 0x6f485c8bf6fc43ea212e93bbf8ce046c7f1cb475
@@ -48,12 +47,12 @@ function getOAR() {
     [[ "`ls -A installed_contracts`" == "oraclize-api" ]] || truffle install oraclize-api
     cat "${DIR}/config/2_initial_migration.js" | tee "${ORACLIZE}/migrations/2_initial_migration.js"
     cat "${DIR}/config/truffle.js" | tee "${ORACLIZE}/truffle.js"
+    cat "${DIR}/config/OraclizeTest.sol" | tee "${ORACLIZE}/contracts/OraclizeTest.sol"
     getOAR
     echo "using ${OAR} and deploying OraclizeTest.sol"
     # https://github.com/WWWillems/medium-02-truffle-oraclize-api
     # tee "${ORACLIZE}/contracts/OraclizeTest.sol" <<EOF...${OAR=...}...EOF
-    sed -i s/'${OAR}'/"${OAR}"/ OraclizeTest.sol
-    cat "${DIR}/configOraclizeTest.sol" | tee "${ORACLIZE}/contracts/OraclizeTest.sol"
+    sed -i s/'${OAR}'/"${OAR}"/ "${ORACLIZE}/contracts/OraclizeTest.sol"
     [[ -d ./build ]] || rm -rf ./build
     truffle compile
     truffle migrate --develop --reset
