@@ -1,8 +1,6 @@
 .idea/
 oraclize/
 node_modules/
-logs/
-!logs/text
 package-lock.json
 ethereum-bridge.log
 test.js
