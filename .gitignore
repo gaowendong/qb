@@ -3,5 +3,4 @@ oraclize/
 node_modules/
 package-lock.json
 bridge.log
-ethereum-bridge.log
 test.js

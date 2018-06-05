@@ -9,9 +9,9 @@
     "server": "pm2 start npm -- start"
   },
   "dependencies": {
-    "eslint": "latest",
     "koa": "latest",
     "koa-json": "latest",
+    "koa-send": "latest",
     "pm2": "latest",
     "truffle": "latest"
   },
