@@ -57,8 +57,9 @@ contract OraclizeTest is usingOraclize {
 
             // Using XPath to to fetch the right element in the JSON response
             // oraclize_query("URL", "json(https://api.coinbase.com/v2/prices/ETH-USD/spot).data.amount");
-            oraclize_query("URL", "json(http://api.test.com:8765).data.amount");
-            // oraclize_query("URL", "json(http://api.test.com:8765).result.high");
+            // oraclize_query("URL", "json(http://api.test.com:8765).data.amount");
+            // oraclize_query("URL", "json(http://api.test.com:8765).data.high");
+            oraclize_query("URL", "json(http://api.test.com:8765).data");
         }
     }
 }

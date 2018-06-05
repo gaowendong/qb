@@ -9,8 +9,9 @@ if [[ ! ${OAR} ]]; then
     echo "no OAR error"
     exit 0
 fi
-cat "${DIR}/2_initial_migration.js" | tee "${ORACLIZE}/migrations/2_initial_migration.js"
+cat "${DIR}/OraclizeTest.sol" | tee "${ORACLIZE}/contracts/OraclizeTest.sol"
 sed -i s/'${OAR}'/"${OAR}"/ "${ORACLIZE}/contracts/OraclizeTest.sol"
-[[ -d "${ORACLIZE}/build" ]] || rm -rf "${ORACLIZE}/build"
+[[ -d "${ORACLIZE}/build" ]] && rm -rf "${ORACLIZE}/build"
+cd ${ORACLIZE}
 truffle compile
 truffle migrate --develop --reset
