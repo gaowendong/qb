@@ -1,3 +1,19 @@
+#!/bin/bash
+set -e
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# ***************************************************************
+[[ -d "${DIR}/oraclize" ]] || (
+    mkdir "${DIR}/oraclize"
+    cd "${DIR}/oraclize"
+    truffle init
+    truffle install oraclize-api
+)
+if [[ ${1} ]]; then
+    OAR=${1}
+fi
+# https://github.com/WWWillems/medium-02-truffle-oraclize-api
+tee "${DIR}/oraclize/contracts/OraclizeTest.sol" <<EOF
 pragma solidity ^0.4.21;
 import "installed_contracts/oraclize-api/contracts/usingOraclize.sol";
 
@@ -19,7 +35,7 @@ contract OraclizeTest is usingOraclize {
         emit LogUpdate(owner, address(this).balance);
 
         // Replace the next line with your version:
-        OAR = OraclizeAddrResolverI(0x98d52C3C3959B35496477510920e2C99E6e9cAC0);
+        OAR = OraclizeAddrResolverI(${OAR=0x98d52C3C3959B35496477510920e2C99E6e9cAC0});
 
         oraclize_setProof(proofType_TLSNotary | proofStorage_IPFS);
         update();
@@ -61,3 +77,10 @@ contract OraclizeTest is usingOraclize {
     }
 
 }
+EOF
+cd "${DIR}/oraclize"
+[[ -d ./build ]] || rm -rf ./build
+truffle compile
+cat "${DIR}/config/2_initial_migration.js" | tee "${DIR}/oraclize/migrations/2_initial_migration.js"
+cat "${DIR}/config/truffle.js" | tee "${DIR}/oraclize/truffle.js"
+truffle migrate --develop --reset
