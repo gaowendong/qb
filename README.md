@@ -1,4 +1,4 @@
-### [start quorum 7nodes and api service](./prereqs-ubuntu.sh)
+### [start quorum 7nodes, api service and blk-explorer-free](./prereqs-ubuntu.sh)
 ### etherum-bridge
 ```bash
 ethereum-bridge -a 0 -H 127.0.0.1 -p 22000 --gasprice 0

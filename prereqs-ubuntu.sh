@@ -23,10 +23,35 @@ node-gyp -v || sudo apt-get install -y node-gyp
 truffle version || npm install -g truffle --registry=https://registry.npm.taobao.org
 ethereum-bridge --version || npm install -g ethereum-bridge --registry=https://registry.npm.taobao.org
 # ***************************************************************
+if ! docker -v; then
+    sudo apt-get -y install docker.io
+    sudo usermod -aG docker $(whoami)
+fi
+[[ -d /etc/docker ]] || sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://bsy887ib.mirror.aliyuncs.com"]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+set +e
+COUNT="$(python -V 2>&1 | grep -c 2.)"
+if [ ${COUNT} -ne 1 ]
+then
+   sudo apt-get install -y python-minimal
+fi
+set -e
+docker-compose --version || sudo pip install docker-compose==1.13.0
+# ***************************************************************
 cd "${HOME}/quorum-examples/7nodes"
 rm -rf qdata/
 ./raft-init.sh
 ./raft-start.sh
+# ***************************************************************
+git clone https://github.com/blk-io/blk-explorer-free.git
+NODE_ENDPOINT=http://localhost:22000 docker-compose -f "${DIR}/blk-explorer-free/linux-docker-compose.yaml" up -d
 # ***************************************************************
 npm run setup
 npm run server
