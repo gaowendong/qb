@@ -31,19 +31,23 @@ cd "${HOME}/quorum-examples/7nodes" && ./raft-init.sh && ./raft-start.sh
 # ***************************************************************
 function getOAR() {
     sleep 3
+#    address resolver (OAR) deployed to: 0x6f485c8bf6fc43ea212e93bbf8ce046c7f1cb475
     OAR=`cat "${DIR}/ethereum-bridge.log" | grep 'OAR = OraclizeAddrResolverI(\S\{42\});' | awk -F \( '{print $2}' | awk -F \) '{print $1}'`
+    if [[ ! ${OAR} ]]; then
+        OAR=`cat "${DIR}/ethereum-bridge.log" | grep 'address resolver (OAR) deployed to: \S\{42\}' | awk -F 'to: ' '{print $2}'`
+    fi
     if [[ ! ${OAR} ]]; then
         echo "waiting OAR"
         getOAR
     fi
 }
 [[ -d ${ORACLIZE} ]] || mkdir ${ORACLIZE}
-cd ${ORACLIZE}
-[[ "`ls -A`" != "" ]] || truffle init
-[[ "`ls -A installed_contracts`" == "oraclize-api" ]] || truffle install oraclize-api
-cat "${DIR}/config/2_initial_migration.js" | tee "${ORACLIZE}/migrations/2_initial_migration.js"
-cat "${DIR}/config/truffle.js" | tee "${ORACLIZE}/truffle.js"
 (
+    cd ${ORACLIZE}
+    [[ "`ls -A`" != "" ]] || truffle init
+    [[ "`ls -A installed_contracts`" == "oraclize-api" ]] || truffle install oraclize-api
+    cat "${DIR}/config/2_initial_migration.js" | tee "${ORACLIZE}/migrations/2_initial_migration.js"
+    cat "${DIR}/config/truffle.js" | tee "${ORACLIZE}/truffle.js"
     getOAR
     echo "using ${OAR} and deploying OraclizeTest.sol"
     # https://github.com/WWWillems/medium-02-truffle-oraclize-api
