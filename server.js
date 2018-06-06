@@ -117,14 +117,14 @@ app.use(async (ctx, next) => {
     const fileName = 'response.json';
     let result = {"data": JSONARRAY[Math.floor(Math.random() * 100 + 1)]};
     // let result = { "data": { "base": "ETH", "currency": "USD", "amount": "606.57" } };
-    await fs.writeFile('./config/' + fileName, JSON.stringify(result), err => {
+    await fs.writeFile('./' + fileName, JSON.stringify(result), err => {
         if (err) {
             console.error(err);
         }
         console.log('write success');
     });
     ctx.attachment(fileName);
-    await Send(ctx, fileName, { root: __dirname + '/config' });
+    await Send(ctx, fileName, { root: __dirname });
     // ctx.body = await result;
 });
 app.listen(PORT);
