@@ -61,6 +61,6 @@ npm run server
 cd ${ORACLIZE}
 [[ "`ls -A`" != "" ]] || truffle init
 [[ "`ls -A installed_contracts`" == "oraclize-api" ]] || truffle install oraclize-api
-cp config/*.js "${ORACLIZE}/migrations/"
-cat "${DIR}/config/truffle.js"             | tee "${ORACLIZE}/truffle.js"
-cat "${DIR}/config/2_initial_migration.js" | tee "${ORACLIZE}/migrations/2_initial_migration.js"
+cp "${DIR}/config/*.sol" "${ORACLIZE}/contracts/"
+cp "${DIR}/config/*_initial_migration.js" "${ORACLIZE}/migrations/"
+cp "${DIR}/config/truffle.js" "${ORACLIZE}/truffle.js"

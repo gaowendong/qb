@@ -9,7 +9,6 @@ if [[ ! ${OAR} ]]; then
     echo "no OAR error"
     exit 0
 fi
-cat "${DIR}/OraclizeTest.sol" | tee "${ORACLIZE}/contracts/OraclizeTest.sol"
 sed -i s/'${OAR}'/"${OAR}"/ "${ORACLIZE}/contracts/OraclizeTest.sol"
 [[ -d "${ORACLIZE}/build" ]] && rm -rf "${ORACLIZE}/build"
 cd ${ORACLIZE}
