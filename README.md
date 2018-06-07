@@ -5,8 +5,9 @@
 
 ### etherum-bridge
 ```bash
-ethereum-bridge -a 0 -H 127.0.0.1 -p 22000 --gasprice 0 --dev
-docker restart $(docker ps -q)
+# ethereum-bridge -a 0 -H 127.0.0.1 -p 22000 --gasprice 0 --dev
+ethereum-bridge -a 0 -H 127.0.0.1 -p 22000 --gasprice 0 --skip
+docker restart $(docker ps -a -q)
 ```
 
 ### deploy contract with OAR
