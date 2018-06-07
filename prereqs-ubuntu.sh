@@ -43,17 +43,20 @@ then
    sudo apt install -y python-minimal
 fi
 set -e
+sudo apt install -y python-pip
 docker-compose --version || sudo pip install docker-compose==1.13.0
 # ***************************************************************
 cd "${HOME}/quorum-examples/7nodes"
+set +e
+./stop.sh
+set -e
 rm -rf qdata/
 ./raft-init.sh
 ./raft-start.sh
 # ***************************************************************
-[[ -d blk-explorer-free || "`ls -A`" != "" ]] || git clone https://github.com/blk-io/blk-explorer-free.git
-NODE_ENDPOINT=http://localhost:22000 docker-compose -f "${DIR}/blk-explorer-free/linux-docker-compose.yaml" up -d
-# ***************************************************************
 cd ${DIR}
+[[ -d blk-explorer-free && "`ls -A`" != "" ]] || git clone https://github.com/blk-io/blk-explorer-free.git
+NODE_ENDPOINT=http://localhost:22000 docker-compose -f "${DIR}/blk-explorer-free/linux-docker-compose.yaml" up -d
 npm run setup
 npm run server
 # ***************************************************************
