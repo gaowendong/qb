@@ -5,7 +5,7 @@
 
 ### etherum-bridge
 ```bash
-ethereum-bridge -a 0 -H 127.0.0.1 -p 22000 --gasprice 0
+ethereum-bridge -a 0 -H 127.0.0.1 -p 22000 --gasprice 0 --dev
 docker restart $(docker ps -q)
 ```
 
