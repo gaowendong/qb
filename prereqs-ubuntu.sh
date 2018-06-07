@@ -2,6 +2,7 @@
 set -e
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ORACLIZE="${DIR}/oraclize"
+BLK="${DIR}/blk-explorer-free"
 # ***************************************************************
 export NVM_DIR="${HOME}/.nvm"
 if ! nvm --version; then
@@ -46,13 +47,16 @@ set -e
 sudo apt install -y python-pip
 docker-compose --version || sudo pip install docker-compose==1.13.0
 # ***************************************************************
+cd ${DIR}
+npm run setup
+npm run server
+# ***************************************************************
+[[ -d ${BLK} && $(ls -A ${BLK}) != "" ]] || git clone https://github.com/blk-io/blk-explorer-free.git ${BLK}
+NODE_ENDPOINT=http://localhost:22000 docker-compose -f "${BLK}/linux-docker-compose.yaml" down
 cd "${HOME}/quorum-examples/7nodes"
 set +e
 ./stop.sh
 set -e
 ./raft-init.sh
 ./raft-start.sh
-# ***************************************************************
-cd ${DIR}
-npm run setup
-npm run server
+NODE_ENDPOINT=http://localhost:22000 docker-compose -f "${BLK}/linux-docker-compose.yaml" up -d
