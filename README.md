@@ -1,4 +1,4 @@
-### start quorum 7nodes, api service and blk-explorer-free
+### start quorum, oraclize api service and blk-explorer-free
 ```bash
 ./prereqs-ubuntu.sh
 ```

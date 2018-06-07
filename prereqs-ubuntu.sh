@@ -50,20 +50,15 @@ cd "${HOME}/quorum-examples/7nodes"
 set +e
 ./stop.sh
 set -e
-rm -rf qdata/
 ./raft-init.sh
 ./raft-start.sh
 # ***************************************************************
 cd ${DIR}
-[[ -d blk-explorer-free && "`ls -A`" != "" ]] || git clone https://github.com/blk-io/blk-explorer-free.git
-NODE_ENDPOINT=http://localhost:22000 docker-compose -f "${DIR}/blk-explorer-free/linux-docker-compose.yaml" up -d
 npm run setup
 npm run server
 # ***************************************************************
-[[ -d ${ORACLIZE} ]] || mkdir ${ORACLIZE}
-cd ${ORACLIZE}
-[[ "`ls -A`" != "" ]] || truffle init
-[[ "`ls -A installed_contracts`" == "oraclize-api" ]] || truffle install oraclize-api
-cp "${DIR}/config/*.sol" "${ORACLIZE}/contracts/"
-cp "${DIR}/config/*_initial_migration.js" "${ORACLIZE}/migrations/"
-cp "${DIR}/config/truffle.js" "${ORACLIZE}/truffle.js"
+[[ -d "${DIR}/blk-explorer-free" && $(ls -A "${DIR}/blk-explorer-free") != "" ]] \
+|| git clone https://github.com/blk-io/blk-explorer-free.git
+cd "${DIR}/blk-explorer-free"
+NODE_ENDPOINT=http://localhost:22000 docker-compose -f linux-docker-compose.yaml down
+NODE_ENDPOINT=http://localhost:22000 docker-compose -f linux-docker-compose.yaml up -d
