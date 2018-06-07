@@ -14,8 +14,8 @@ if ! nvm --version; then
     fi
 fi
 # Set up nvm environment without restarting the shell
-[ -s "${NVM_DIR}/nvm.sh" ] && . "${NVM_DIR}/nvm.sh"
-[ -s "${NVM_DIR}/bash_completion" ] && . "${NVM_DIR}/bash_completion"
+[ -s "${NVM_DIR}/nvm.sh" ] && \. "${NVM_DIR}/nvm.sh"
+[ -s "${NVM_DIR}/bash_completion" ] && \. "${NVM_DIR}/bash_completion"
 
 sudo apt -y install language-pack-zh-hans
 node -v || nvm install --lts
