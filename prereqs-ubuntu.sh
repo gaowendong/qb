@@ -53,10 +53,11 @@ npm run server
 # ***************************************************************
 [[ -d ${BLK} && $(ls -A ${BLK}) != "" ]] || git clone https://github.com/blk-io/blk-explorer-free.git ${BLK}
 NODE_ENDPOINT=http://localhost:22000 docker-compose -f "${BLK}/linux-docker-compose.yaml" down
-cd "${HOME}/quorum-examples/7nodes"
 set +e
-./stop.sh
+killall -w -9 geth bootnode constellation-node
+echo 3 > /proc/sys/vm/drop_caches
 set -e
+cd "${HOME}/quorum-examples/7nodes"
 ./raft-init.sh
 ./raft-start.sh
 NODE_ENDPOINT=http://localhost:22000 docker-compose -f "${BLK}/linux-docker-compose.yaml" up -d
