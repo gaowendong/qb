@@ -6,3 +6,4 @@ package-lock.json
 response.json
 bridge.log
 test.js
+.node*
