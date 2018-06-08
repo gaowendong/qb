@@ -53,7 +53,7 @@ sudo apt install -y python-pip
 docker-compose --version || sudo pip install docker-compose
 # ***************************************************************
 cd ${DIR}
-grep '127.0.0.1\s\+api.test.com' /etc/hosts || sudo tee -a /etc/hosts | echo '127.0.0.1  api.test.com'
+grep '127.0.0.1\s\+api.test.com' /etc/hosts || echo '127.0.0.1  api.test.com' | sudo tee -a /etc/hosts
 npm run setup
 npm run server
 # ***************************************************************
