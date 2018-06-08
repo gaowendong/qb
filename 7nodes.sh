@@ -5,7 +5,8 @@ read -p "Deploying in virtualbox ? [Y/n]" var
 if [[ "${var}" != "Y" ]]; then
 : <<'COMMIT'
 su root
-useradd vargant -m -s `which bash`
+# userdel -rf zj
+useradd vagrant -m -s `which bash`
 chmod u+x /etc/sudoers
 sudo -e /etc/sudoers
 ...
@@ -14,6 +15,7 @@ vagrant ALL=(ALL:ALL) ALL
 chmod u-x /etc/sudoers
 cd /home/vagrant
 curl -sLf https://raw.githubusercontent.com/jpmorganchase/quorum-examples/master/vagrant/bootstrap.sh | bash
+passwd vagrant
 su vagrant
 COMMIT
     [[ -d /home/vagrant/examples ]] || mkdir /home/vagrant/examples
