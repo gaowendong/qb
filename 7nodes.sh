@@ -9,12 +9,13 @@ su root
 useradd vagrant -m -s `which bash`
 chmod u+x /etc/sudoers
 sudo -e /etc/sudoers
-...
-vagrant ALL=(ALL:ALL) ALL
-...
+# modify
+# vagrant ALL=(ALL:ALL) ALL
 chmod u-x /etc/sudoers
 cd /home/vagrant
 curl -sLf https://raw.githubusercontent.com/jpmorganchase/quorum-examples/master/vagrant/bootstrap.sh | bash
+# error info
+# cp: cannot stat '/vagrant/examples': No such file or directory
 passwd vagrant
 su vagrant
 COMMIT
