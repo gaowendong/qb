@@ -7,7 +7,8 @@
 
 ### run etherum-bridge with host
 ```bash
-ethereum-bridge -a 0 --gasprice 0 --dev --skip --disable-price -H ${NODE_HOST} -p 22000
+# ethereum-bridge -a 0 --gasprice 0 --dev --skip --disable-price -H ${NODE_HOST} -p 22000
+ethereum-bridge -a 0 --gasprice 0 --dev --skip --disable-price -H localhost -p 22000
 docker restart $(docker ps -a -q)
 ```
 
