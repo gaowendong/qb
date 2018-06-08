@@ -4,6 +4,7 @@ set -e
 : <<'COMMIT'
 su root
 # userdel -rf zj
+# userdel -rf vagrant
 useradd vagrant -m -s `which bash`
 chmod u+x /etc/sudoers
 sudo -e /etc/sudoers
