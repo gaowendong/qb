@@ -5,24 +5,20 @@ ORACLIZE="${DIR}/oraclize"
 BLK="${DIR}/blk-explorer-free"
 NODE_HOST=localhost
 # ***************************************************************
-export NVM_DIR="${HOME}/.nvm"
-if ! nvm --version; then
-    if [[ ! -d ${NVM_DIR} || ! -s "${NVM_DIR}/nvm.sh" || ! -s "${NVM_DIR}/bash_completion" ]]; then
-        echo "# Installing nvm dependencies"
-        sudo apt -y install build-essential libssl-dev
-        echo "# Executing nvm installation script"
-        curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
-    fi
+if [[ ! -d ${NVM_DIR} || ! -s "${NVM_DIR}/nvm.sh" || ! -s "${NVM_DIR}/bash_completion" ]]; then
+    echo "# Installing nvm dependencies"
+    sudo apt -y install build-essential libssl-dev
+    echo "# Executing nvm installation script"
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
+    # Set up nvm environment without restarting the shell
+    export NVM_DIR="${HOME}/.nvm"
+    [ -s "${NVM_DIR}/nvm.sh" ] && \. "${NVM_DIR}/nvm.sh"
+    [ -s "${NVM_DIR}/bash_completion" ] && \. "${NVM_DIR}/bash_completion"
+    node -v || nvm install --lts
+    nvm ls-remote --lts | grep $(node -v) || nvm use --lts && nvm alias default 'lts/*'
 fi
-# Set up nvm environment without restarting the shell
-[ -s "${NVM_DIR}/nvm.sh" ] && \. "${NVM_DIR}/nvm.sh"
-[ -s "${NVM_DIR}/bash_completion" ] && \. "${NVM_DIR}/bash_completion"
-
-sudo apt -y install language-pack-zh-hans
-node -v || nvm install --lts
-nvm ls-remote --lts | grep $(node -v) || nvm use --lts && nvm alias default 'lts/*'
 sudo apt update
-node-gyp -v || sudo apt install -y node-gyp
+sudo apt install -y language-pack-zh-hans node-gyp
 truffle version || npm install -g truffle --registry=https://registry.npm.taobao.org
 ethereum-bridge --version || npm install -g ethereum-bridge --registry=https://registry.npm.taobao.org
 # ***************************************************************
