@@ -24,6 +24,7 @@ fi
 sudo apt -y install language-pack-zh-hans
 node -v || nvm install --lts
 nvm ls-remote --lts | grep $(node -v) || nvm use --lts && nvm alias default 'lts/*'
+sudo apt update
 node-gyp -v || sudo apt install -y node-gyp
 truffle version || npm install -g truffle --registry=https://registry.npm.taobao.org
 ethereum-bridge --version || npm install -g ethereum-bridge --registry=https://registry.npm.taobao.org
