@@ -20,9 +20,8 @@ pm2 start givePdf.js
 */
 
 const app = new Koa();
-const PORT = 8765;
+const PORT = 8766;
 
-app.use(Json());
 app.use(async (ctx, next) => {
     const fileName = 'finance_report.pdf';
     ctx.attachment(fileName);
