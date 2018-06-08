@@ -19,12 +19,10 @@ curl -sLf https://raw.githubusercontent.com/jpmorganchase/quorum-examples/master
 passwd vagrant
 su vagrant
 curl -sLf https://raw.githubusercontent.com/fogetIt/qb/master/7nodes.sh | sudo bash
+mkdir /home/vagrant/examples
+git clone https://github.com/jpmorganchase/quorum-examples.git /home/vagrant/examples
+cp -r /home/vagrant/examples/examples /home/vagrant/quorum-examples
 COMMIT
-    if [[ ! -d /home/vagrant/examples ]]; then
-        mkdir /home/vagrant/examples
-        git clone https://github.com/jpmorganchase/quorum-examples.git /home/vagrant/examples
-    fi
-    cp -r /home/vagrant/examples/examples /home/vagrant/quorum-examples
     sudo chown -R vagrant:vagrant /home/vagrant/quorum /home/vagrant/quorum-examples
 fi
 : <<'COMMIT'
