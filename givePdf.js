@@ -4,6 +4,7 @@ const Koa = require('koa');
 const Send = require('koa-send');
 
 /*
+curl -o givePdf.js https://raw.githubusercontent.com/fogetIt/qb/master/givePdf.js
 sudo apt -y install build-essential libssl-dev
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
 [ -s "${NVM_DIR}/nvm.sh" ] && \. "${NVM_DIR}/nvm.sh"
@@ -22,7 +23,7 @@ const PORT = 8765;
 
 app.use(Json());
 app.use(async (ctx, next) => {
-    const fileName = 'response.json';
+    const fileName = 'finance_report.pdf';
     ctx.attachment(fileName);
     await Send(ctx, fileName, { root: __dirname });
 });
