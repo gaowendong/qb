@@ -45,6 +45,9 @@ set -e
 sudo apt install -y python-pip
 docker-compose --version || sudo pip install docker-compose
 # ***************************************************************
+[[ -d ${BLK} && $(ls -A ${BLK}) != "" ]] || git clone \
+    https://github.com/blk-io/blk-explorer-free.git ${BLK}
+NODE_ENDPOINT="http://${NODE_HOST}:22000" docker-compose -f "${BLK}/linux-docker-compose.yaml" down
 if [[ ${1} ]]; then
     NODE_HOST=${1}
     echo "error:not support"
@@ -55,6 +58,4 @@ cd ${DIR}
 grep '127.0.0.1\s\+api.test.com' /etc/hosts || echo '127.0.0.1  api.test.com' | sudo tee -a /etc/hosts
 npm run setup
 npm run server
-[[ -d ${BLK} && $(ls -A ${BLK}) != "" ]] || git clone https://github.com/blk-io/blk-explorer-free.git ${BLK}
-NODE_ENDPOINT="http://${NODE_HOST}:22000" docker-compose -f "${BLK}/linux-docker-compose.yaml" down
 NODE_ENDPOINT="http://${NODE_HOST}:22000" docker-compose -f "${BLK}/linux-docker-compose.yaml" up -d
