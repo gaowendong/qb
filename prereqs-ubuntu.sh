@@ -52,7 +52,7 @@ if [[ ${1} ]]; then
     NODE_HOST=${1}
     echo "error:not support"
 else
-    "${DIR}/7nodes.sh"
+    "${DIR}/blockchains.sh"
 fi
 cd ${DIR}
 grep '127.0.0.1\s\+api.test.com' /etc/hosts || echo '127.0.0.1  api.test.com' | sudo tee -a /etc/hosts

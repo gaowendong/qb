@@ -1,4 +1,4 @@
-### [start quorum 7nodes](./7nodes)
+### [start blockchains](./blockchains)
 
 ### start oraclize response service and run blk-explorer-free with host
 ```bash
